@@ -18,9 +18,13 @@ func GetJSON(url string, params map[string]string, resObj interface{}) error {
 
 	q := req.URL.Query()
 
-	for k, v := range params {
-		q.Add(k, v)
+	if  params != nil {
+		for k, v := range params {
+			q.Add(k, v)
+		}
 	}
+
+
 
 	req.URL.RawQuery = q.Encode()
 
@@ -88,10 +92,13 @@ func PostJSON(url string, params map[string]string, res interface{}) error {
 
 	req.Header.Set("Content-Type", "application/json")
 
-	for k, v := range params {
+	if  params != nil {
+		for k, v := range params {
 
-		req.PostForm.Add(k, v)
+			req.PostForm.Add(k, v)
+		}
 	}
+
 
 	resp, err := client.Do(req)
 
@@ -103,6 +110,7 @@ func PostJSON(url string, params map[string]string, res interface{}) error {
 	}
 
 	json.Unmarshal(body, res)
+	log.Println(url,bytes.NewBuffer(body).String())
 
 	return nil
 }
