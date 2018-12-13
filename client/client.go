@@ -1,4 +1,4 @@
-package go_httpclient
+package client
 
 import (
 	"io/ioutil"
